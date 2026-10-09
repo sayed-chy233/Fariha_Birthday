@@ -1,11 +1,89 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Fariha! 🎉</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0512;
+            --purple-glow: #8a2be2;
+            --rose-gold: #ffb7c5;
+            --gold-accent: #ffd700;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
+        }
 
-        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: #ffffff;
+            font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Particle Canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+                        0 0 40px rgba(138, 43, 226, 0.3);
+            display: none;
+            transition: all 0.5s ease;
+        }
 
         .page.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            visibility: visible;
-            position: relative;
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .highlight-title {
@@ -62,81 +140,77 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
+            outline: none;
+            touch-action: manipulation;
         }
 
-        .btn-custom:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(255, 65, 108, 0.6);
+        .btn-custom:active {
+            transform: scale(0.96);
         }
 
-        /* PAGE 2: ADVANCED PORTAL */
+        /* PAGE 2: PORTAL */
         .portal-wrapper {
             position: relative;
-            width: 240px;
-            height: 240px;
+            width: 220px;
+            height: 220px;
             margin: 20px auto 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .portal-ring {
             position: absolute;
             border-radius: 50%;
             border: 2px solid transparent;
-            transition: all 0.5s ease;
         }
 
         .ring-1 {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             border-top-color: var(--rose-gold);
             border-bottom-color: var(--purple-glow);
             animation: spin 3s linear infinite;
         }
 
         .ring-2 {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-left-color: var(--gold-accent);
             border-right-color: #ff416c;
             animation: spinReverse 2s linear infinite;
         }
 
         .ring-3 {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             border: 2px dashed rgba(255, 255, 255, 0.6);
             animation: spin 6s linear infinite;
         }
 
         .portal-core {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: radial-gradient(circle, #fff 0%, var(--purple-glow) 70%, transparent 100%);
             border-radius: 50%;
             box-shadow: 0 0 50px var(--purple-glow), 0 0 100px var(--rose-gold);
             animation: corePulse 1.5s infinite alternate ease-in-out;
-            transition: transform 0.3s ease;
-        }
-
-        .portal-wrapper.warping .portal-core {
-            transform: scale(2.5);
-            opacity: 0.9;
         }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes spinReverse { 100% { transform: rotate(-360deg); } }
         @keyframes corePulse { 0% { transform: scale(0.85); opacity: 0.8; } 100% { transform: scale(1.15); opacity: 1; } }
 
-        /* PAGE 3: FLORAL CAKE */
+        /* PAGE 3: CAKE & SURPRISE */
         .cake-container {
             margin: 25px auto 15px;
             position: relative;
             width: 220px;
             height: 170px;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .cake-plate {
@@ -182,7 +256,6 @@
             box-shadow: inset 0 -4px 0 #fce4ec;
         }
 
-        /* Flower Decor on Cake */
         .cake-flowers {
             position: absolute;
             top: 92px;
@@ -194,12 +267,8 @@
             pointer-events: none;
         }
 
-        .flower-item {
-            font-size: 1.1rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
+        .flower-item { font-size: 1.1rem; }
 
-        /* Candle & Flame */
         .candle {
             width: 8px;
             height: 30px;
@@ -250,7 +319,6 @@
             100% { transform: scale(1.1) rotate(2deg); }
         }
 
-        /* Gift Box */
         .gift-section { margin-top: 15px; }
 
         .gift-box {
@@ -262,10 +330,8 @@
             position: relative;
             cursor: pointer;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
+            touch-action: manipulation;
         }
-
-        .gift-box:hover { transform: scale(1.08) rotate(3deg); }
 
         .gift-ribbon-v {
             width: 14px;
@@ -293,11 +359,6 @@
             animation: fadeIn 0.8s ease forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .signoff-box {
             margin-top: 20px;
             padding: 12px 18px;
@@ -309,7 +370,6 @@
             font-weight: 600;
         }
 
-        /* Balloons */
         .balloon-layer {
             position: fixed;
             top: 0;
@@ -330,6 +390,7 @@
             pointer-events: auto;
             cursor: pointer;
             animation: floatUp 8s linear infinite;
+            touch-action: manipulation;
         }
 
         .balloon::after {
@@ -382,49 +443,48 @@
 </head>
 <body>
 
-    <div class="audio-btn" id="audioToggle" onclick="toggleAudio()">🎵</div>
+    <div class="audio-btn" id="audioToggle">🎵</div>
     <canvas id="bgCanvas"></canvas>
     <div class="balloon-layer" id="balloonContainer"></div>
 
     <div class="app-container">
 
-        <!-- PAGE 1: GREETING -->
+        <!-- PAGE 1 -->
         <div class="page active" id="page1">
             <div class="date-badge">10 Oct ✨</div>
             <h1 class="highlight-title">Hi Fariha</h1>
             <p class="subtitle">Tomar jonno ekta chotto surprise er ayojon kora hoyeche...</p>
             
-            <button class="btn-custom" onclick="goToPage(2)">
+            <button class="btn-custom" id="btn1">
                 <span>Click Koro Fariha surprise pete hole</span> ➔
             </button>
         </div>
 
-        <!-- PAGE 2: PORTAL -->
+        <!-- PAGE 2 -->
         <div class="page" id="page2">
             <h2 class="highlight-title" style="font-size: 1.8rem;">Magic Portal</h2>
             <p class="subtitle" style="margin-bottom: 10px;">Surprise world-e probesh korte niche click koro</p>
             
-            <div class="portal-wrapper" id="portalWrap" onclick="enterPortal()">
+            <div class="portal-wrapper" id="portalWrap">
                 <div class="portal-ring ring-1"></div>
                 <div class="portal-ring ring-2"></div>
                 <div class="portal-ring ring-3"></div>
                 <div class="portal-core"></div>
             </div>
 
-            <button class="btn-custom" onclick="enterPortal()">
+            <button class="btn-custom" id="btn2">
                 <span>Abar Click Koro</span> ✨
             </button>
         </div>
 
-        <!-- PAGE 3: SURPRISE -->
+        <!-- PAGE 3 -->
         <div class="page" id="page3">
             <h1 class="highlight-title" style="font-size: 2rem;">Happy Birthday Fariha! 🎉</h1>
             <p style="color: var(--gold-accent); font-weight: 600; font-size: 1.15rem; margin-bottom: 12px;">
                 May Allah bless you 🌺
             </p>
 
-            <!-- Floral Cake -->
-            <div class="cake-container" onclick="blowCandle()">
+            <div class="cake-container" id="cakeContainer">
                 <div class="cake-plate"></div>
                 <div class="cake-layer layer-bottom"></div>
                 <div class="cake-layer layer-middle"></div>
@@ -444,9 +504,8 @@
             </div>
             <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px;">(Candle-e click kore mombati bhenao! 🎂)</p>
 
-            <!-- Gift Box -->
             <div class="gift-section">
-                <div class="gift-box" onclick="openGift()">
+                <div class="gift-box" id="giftBox">
                     <div class="gift-ribbon-v"></div>
                     <div class="gift-ribbon-h"></div>
                 </div>
@@ -454,4 +513,233 @@
 
                 <div class="wish-card" id="wishCard">
                     <p style="font-size: 0.95rem; line-height: 1.6; color: #fff;">
-                        🌟 "Jonmod
+                        🌟 "Jonmodiner onek onek shubhechha o bhalobasha! Allah tomar jibone shob shuk, shanti o shofolta daan korun. Shobshomoy hasikhushi thako!" 🌸
+                    </p>
+                </div>
+            </div>
+
+            <div class="signoff-box">
+                Sayeed vaire Treat Dilaio Taratari 😋🍕
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Audio Synthesizer
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        let isMuted = false;
+
+        function initAudio() {
+            try {
+                if (!audioCtx) audioCtx = new AudioContext();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+            } catch(e){}
+        }
+
+        function playPopSound() {
+            if (isMuted) return;
+            initAudio();
+            if (!audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch(e){}
+        }
+
+        function playChime() {
+            if (isMuted) return;
+            initAudio();
+            if (!audioCtx) return;
+            try {
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.1);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime + idx * 0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.1 + 0.6);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(audioCtx.currentTime + idx * 0.1);
+                    osc.stop(audioCtx.currentTime + idx * 0.1 + 0.6);
+                });
+            } catch(e){}
+        }
+
+        // Direct Event Listener Bindings
+        function goToPage(pageNum) {
+            initAudio();
+            playChime();
+
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const nextEl = document.getElementById(`page${pageNum}`);
+            if (nextEl) nextEl.classList.add('active');
+
+            if (pageNum === 3) triggerCelebration();
+        }
+
+        document.getElementById('btn1').addEventListener('click', function() { goToPage(2); });
+        document.getElementById('btn1').addEventListener('touchstart', function() { goToPage(2); });
+
+        document.getElementById('btn2').addEventListener('click', function() { goToPage(3); });
+        document.getElementById('btn2').addEventListener('touchstart', function() { goToPage(3); });
+
+        document.getElementById('portalWrap').addEventListener('click', function() { goToPage(3); });
+        document.getElementById('portalWrap').addEventListener('touchstart', function() { goToPage(3); });
+
+        document.getElementById('audioToggle').addEventListener('click', function() {
+            isMuted = !isMuted;
+            this.innerText = isMuted ? '🔇' : '🎵';
+        });
+
+        // Particle Canvas
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = -Math.random() * 0.6 - 0.2;
+                this.alpha = Math.random() * 0.7 + 0.3;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < 0) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 183, 197, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Celebration Effects
+        function triggerCelebration() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#ffb7c5', '#ffd700', '#8a2be2', '#ff416c']
+                });
+            }
+            spawnPetals();
+            spawnBalloons();
+        }
+
+        function spawnPetals() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.style.left = Math.random() * 100 + 'vw';
+                    petal.style.width = (Math.random() * 10 + 10) + 'px';
+                    petal.style.height = (Math.random() * 10 + 10) + 'px';
+                    petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    document.body.appendChild(petal);
+
+                    setTimeout(() => petal.remove(), 7000);
+                }, i * 300);
+            }
+        }
+
+        function spawnBalloons() {
+            const container = document.getElementById('balloonContainer');
+            const colors = ['#ff416c', '#8a2be2', '#ffd700', '#ffb7c5', '#00d2ff'];
+
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.style.left = (Math.random() * 85 + 5) + 'vw';
+                    b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    b.style.animationDuration = (Math.random() * 4 + 6) + 's';
+
+                    const pop = function() {
+                        playPopSound();
+                        if (typeof confetti === 'function') {
+                            confetti({
+                                particleCount: 25,
+                                spread: 50,
+                                origin: {
+                                    x: b.getBoundingClientRect().left / window.innerWidth,
+                                    y: b.getBoundingClientRect().top / window.innerHeight
+                                }
+                            });
+                        }
+                        b.remove();
+                    };
+
+                    b.addEventListener('click', pop);
+                    b.addEventListener('touchstart', pop);
+
+                    container.appendChild(b);
+                }, i * 600);
+            }
+        }
+
+        let isCandleBlown = false;
+        function blowCandle() {
+            if (isCandleBlown) return;
+            isCandleBlown = true;
+
+            document.getElementById('candleFlame').classList.add('extinguished');
+            document.getElementById('candleSmoke').classList.add('active');
+
+            playPopSound();
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 90, spread: 85, origin: { y: 0.5 } });
+            }
+        }
+
+        document.getElementById('cakeContainer').addEventListener('click', blowCandle);
+        document.getElementById('cakeContainer').addEventListener('touchstart', blowCandle);
+
+        function openGift() {
+            document.getElementById('wishCard').style.display = 'block';
+            playChime();
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
+            }
+        }
+
+        document.getElementById('giftBox').addEventListener('click', openGift);
+        document.getElementById('giftBox').addEventListener('touchstart', openGift);
+    </script>
+</body>
+</html>
